@@ -6,7 +6,7 @@ vendedor (Pessoa) e deve haver no mínimo 1 Item nessa Venda.
 
 ### Comandos para executar o projeto local
 # Clone este repositório
-$ git clone git@github.com:BrunoAlou/centi-teste-imgur.git
+$ git clone git@github.com:BrunoAlou/loginfo.git
 
 
 
