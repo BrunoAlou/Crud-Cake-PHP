@@ -25,6 +25,8 @@ $ composer intall
 $ bin/cake migrations migrate
 # Para rodar os seeds
 $ bin/cake migrations seed
+# Para rodar o servidor cake
+$ bin/cake server
 
 ```
 
