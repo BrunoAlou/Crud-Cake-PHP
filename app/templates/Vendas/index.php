@@ -5,7 +5,7 @@
  */
 ?>
 <div class="vendas index content">
-    <?= $this->Html->link(__('New Venda'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <?= $this->Html->link(__('Nova Venda'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Vendas') ?></h3>
     <div class="table-responsive">
         <table>
@@ -24,9 +24,9 @@
                     <td><?= h($venda->pessoa->nome) ?></td>
                     <td><?= h($venda->vendedor_id) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $venda->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $venda->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $venda->id], ['confirm' => __('Are you sure you want to delete # {0}?', $venda->id)]) ?>
+                        <?= $this->Html->link(__('Visualizar'), ['action' => 'view', $venda->id]) ?>
+                        <?= $this->Html->link(__('Editar'), ['action' => 'edit', $venda->id]) ?>
+                        <?= $this->Form->postLink(__('Deletar'), ['action' => 'delete', $venda->id], ['confirm' => __('Tem certeza que gostaria de deletar# {0}?', $venda->id)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -35,12 +35,12 @@
     </div>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('primeiro')) ?>
+            <?= $this->Paginator->prev('< ' . __('anterior')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('proximo') . ' >') ?>
+            <?= $this->Paginator->last(__('ultimo') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p><?= $this->Paginator->counter(__('Pagina {{page}} de{{pages}}, mostrando {{current}} registros(s) em umtotal de  {{count}}')) ?></p>
     </div>
 </div>

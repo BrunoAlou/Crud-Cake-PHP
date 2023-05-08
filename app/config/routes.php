@@ -98,9 +98,14 @@ return static function (RouteBuilder $routes) {
     ->setPatterns(['id' => '\d+'])
     ->setPass(['id']);
 
-
-    
-
+    $routes->get('/itens-venda', ['controller' => 'ItensVenda', 'action' => 'index']);
+    $routes->get('/itens-venda/add', ['controller' => 'ItensVenda', 'action' => 'add']);
+    $routes->get('/itens-venda/edit/:id', ['controller' => 'ItensVenda', 'action' => 'edit'])
+        ->setPatterns(['id' => '\d+'])
+        ->setPass(['id']);
+    $routes->get('/itens-venda/view/:id', ['controller' => 'ItensVenda', 'action' => 'view'])
+        ->setPatterns(['id' => '\d+'])
+        ->setPass(['id']);
 
     /*
     /*

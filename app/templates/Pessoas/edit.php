@@ -9,18 +9,18 @@
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
             <?= $this->Form->postLink(
-                __('Delete'),
+                __('Deletar'),
                 ['action' => 'delete', $pessoa->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $pessoa->id), 'class' => 'side-nav-item']
+                ['confirm' => __('Tem certeza que gostaria de deletar# {0}?', $pessoa->id), 'class' => 'side-nav-item']
             ) ?>
-            <?= $this->Html->link(__('List Pessoas'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Listar Pessoas'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
         <div class="pessoas form content">
             <?= $this->Form->create($pessoa) ?>
             <fieldset>
-                <legend><?= __('Edit Pessoa') ?></legend>
+                <legend><?= __('Editar Pessoa') ?></legend>
                 <?php
                     echo $this->Form->control('nome');
                     echo $this->Form->control('cpf');

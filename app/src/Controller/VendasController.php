@@ -25,10 +25,11 @@ class VendasController extends AppController
     public function view($id = null)
     {
         $venda = $this->Vendas->get($id, [
-            'contain' => ['Pessoas'],
+            'contain' => ['Pessoas', 'ItensVenda', 'ItensVenda.Itens'],
         ]);
+        
         $this->set(compact('venda'));
-    }
+    }    
 
     public function add()
     {
@@ -62,8 +63,6 @@ class VendasController extends AppController
         }
         $pessoas = $this->Vendas->Pessoas->find('list', ['limit' => 200]);
         $vendedores = $this->Vendas->Pessoas->find('list', ['limit' => 200]);
-        var_dump($vendedores);
-        exit();
         $this->set(compact('venda', 'pessoas', 'vendedores'));
     }
 

@@ -14,7 +14,7 @@
  * @var \App\View\AppView $this
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'LogInfo';
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,7 +38,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
     <nav class="top-nav">
         <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
+            <?php
+                echo $this->Html->link(
+                    $this->Html->image('Marca-Loginfo.png', ['alt' => 'Logo LogInfo', 'class' => 'img-responsive','style' => 'width: 200px; height: auto;']),
+                    '/',
+                    ['escape' => false]
+                );
+            ?>
         </div>
         <div class="top-nav-links">
             <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/">Documentation</a>

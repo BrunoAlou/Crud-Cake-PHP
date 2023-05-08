@@ -43,10 +43,15 @@ class ItensVendaTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->belongsTo('Itens', [
+            'foreignKey' => 'item_id',
+            'joinType' => 'INNER',
+        ]);        
         $this->belongsTo('Vendas', [
             'foreignKey' => 'venda_id',
             'joinType' => 'INNER',
         ]);
+
     }
 
     /**

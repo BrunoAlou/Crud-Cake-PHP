@@ -11,9 +11,9 @@
             <?= $this->Form->postLink(
                 __('Delete'),
                 ['action' => 'delete', $iten->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $iten->id), 'class' => 'side-nav-item']
+                ['confirm' => __('Tem certeza que gostaria de deletar# {0}?', $iten->id), 'class' => 'side-nav-item']
             ) ?>
-            <?= $this->Html->link(__('List Itens'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Listagem de Itens'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">

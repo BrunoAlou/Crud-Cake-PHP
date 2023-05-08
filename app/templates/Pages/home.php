@@ -54,7 +54,7 @@ endif;
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        CakePHP: the rapid development PHP framework:
+        LogInfo: Sistema de Vendas
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
@@ -72,7 +72,13 @@ endif;
         <div class="container text-center">
 
             <h1>
-                Sistema de cadastro de itens Loginfo
+            <?php
+                echo $this->Html->link(
+                    $this->Html->image('Marca-Loginfo.png', ['alt' => 'Logo LogInfo', 'class' => 'img-responsive','style' => 'width: 200px; height: auto;']),
+                    '/',
+                    ['escape' => false]
+                );
+            ?>
             </h1>
         </div>
     </header>
@@ -85,8 +91,8 @@ endif;
                             <ul>
                                 <li class="bullet problem">
                                     URL rewriting is not properly configured on your server.<br />
-                                    1) <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/en/installation.html#url-rewriting">Help me configure it</a><br />
-                                    2) <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/en/development/configuration.html#general-configuration">I don't / can't use URL rewriting</a>
+                                    1) <a rel="noopener" href="https://book.cakephp.org/4/en/installation.html#url-rewriting">Help me configure it</a><br />
+                                    2) <a rel="noopener" href="https://book.cakephp.org/4/en/development/configuration.html#general-configuration">I don't / can't use URL rewriting</a>
                                 </li>
                             </ul>
                         </div>
@@ -97,30 +103,37 @@ endif;
                     <div class="column">
                         <h4>Itens</h4>
                         <ul>
-                            <li><a target="_blank" rel="noopener" href="/itens/">Listagem de Itens</a></li>
-                            <li><a target="_blank" rel="noopener" href="/itens/add">Cadastro de Itens</a></li>
+                            <li><a rel="noopener" href="/itens/">Listagem de Itens</a></li>
+                            <li><a rel="noopener" href="/itens/add">Cadastro de Itens</a></li>
                         </ul>
                     </div>
                     <div class="column">
                         <h4>Pessoas</h4>
                         <ul>
-                            <li><a target="_blank" rel="noopener" href="/pessoas/">Listagem de Pessoas</a></li>
-                            <li><a target="_blank" rel="noopener" href="/pessoas/add">Cadastro de Pessoas</a></li>
+                            <li><a rel="noopener" href="/pessoas/">Listagem de Pessoas</a></li>
+                            <li><a rel="noopener" href="/pessoas/add">Cadastro de Pessoas</a></li>
                         </ul>
                     </div>
                     <div class="column">
                         <h4>Vendas</h4>
                         <ul>
-                            <li><a target="_blank" rel="noopener" href="/vendas/">Listagem de Vendas</a></li>
-                            <li><a target="_blank" rel="noopener" href="/vendas/add">Cadastro de Vendas</a></li>
+                            <li><a rel="noopener" href="/vendas/">Listagem de Vendas</a></li>
+                            <li><a rel="noopener" href="/vendas/add">Cadastro de Vendas</a></li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>Itens da Vendas</h4>
+                        <ul>
+                            <li><a rel="noopener" href="/itens-venda/">Listagem de Itens da Vendas</a></li>
+                            <li><a rel="noopener" href="/itens-venda/add">Cadastro de Vendas</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="row">
                     <div class="column links">
                         <h3>Links</h3>
-                        <a target="_blank" rel="noopener" href="https://cakefoundation.org/">Cake Software Foundation</a>
-                        <a target="_blank" rel="noopener" href="https://training.cakephp.org/">CakePHP Training</a>
+                        <a rel="noopener" href="https://cakefoundation.org/">Cake Software Foundation</a>
+                        <a rel="noopener" href="https://training.cakephp.org/">CakePHP Training</a>
                     </div>
                 </div>
             </div>
