@@ -17,7 +17,8 @@ São necessárias as seguintes tecnologias instaladas em seu ambiente local para
 [Git](https://git-scm.com), [php7.4](https://www.php.net/downloads.php), [cakePHP 3.9](https://cakephp.org/) ,[Composer](https://getcomposer.org/) e [Mysql](https://www.mysql.com/).
 
 #### Comandos para executar o projeto local
-Realize a criacáo de um banco local de nome loginfo no mysql
+Realize a criacao de um banco local de nome loginfo no mysql
+configure o arquivo app/config/app.php com as configuracoes de seu mysql local
 ```bash
 $ cd app
 $ composer intall
