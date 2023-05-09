@@ -28,7 +28,7 @@
                     echo $this->Form->control('telefone');
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Adicionar')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

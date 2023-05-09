@@ -17,60 +17,78 @@
             <fieldset>
                 <legend><?= __('Add Iten') ?></legend>
                 <?php
-                    echo $this->Form->control('nome');
+                    echo $this->Form->control('nome', ['required' => true, 'empty' => 'Por favor, preencha o campo nome']);
+
                     echo $this->Form->label('unidade_medida', 'Unidade de Medida');
                     echo $this->Form->select('unidade_medida', [
                         'litro' => 'Litro',
                         'quilograma' => 'Quilograma',
                         'unidade' => 'Unidade',
                         'gramas' => 'Gramas',
-                    ], ['empty' => true]);
-                    echo $this->Form->control('quantidade');
-                    echo $this->Form->control('preco', ['type' => 'number', 'step' => '0.01', 'label' => 'Preço']);
-                    echo $this->Form->control('perecivel');
-                    echo $this->Form->control('data_validade', ['type' => 'date']);
-                    echo $this->Form->control('data_fabricacao', ['type' => 'date']);
+                    ], ['empty' => true, 'id' => 'unidade-medida']);
+                    echo $this->Form->control('quantidade', ['id' => 'quantidade']);
+                    echo $this->Form->control('preco', ['type' => 'number', 'step' => '0.01', 'label' => 'Preço', 'id' => 'preco']);
+                    echo $this->Form->control('perecivel', ['id' => 'perecivel']);
+                    echo $this->Form->control('data_validade', ['type' => 'date', 'id' => 'data-validade']);
+                    echo $this->Form->control('data_fabricacao', ['type' => 'date', 'id' => 'data-fabricacao']);
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            </fieldset>
+            <?= $this->Form->button(__('Adicionar'), ['id' => 'submit-button']) ?>
+            <?= $this->Html->link('Voltar', '/', ['class' => 'button']) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/path/to/jquery.mask.min.js"></script>
 
 <script>
-$(document).ready(function(){
-  $('form').submit(function(){
-    var nome = $('#nome').val();
-    var unidade_medida = $('#unidade-medida').val();
-    var perecivel = $('#perecivel').val();
-    var data_fabricacao = $('#data-fabricacao').val();
-    var errors = '';
+  $(document).ready(function(){
+    $('#perecivel').change(function(){
+        if ($(this).is(':checked')) {
+            $('#data-validade').prop('required', true);
+        } else {
+            $('#data-validade').prop('required', false);
+        }
+    });
+// Regra da unidade de medida
+    $('#unidade-medida').change(function() {
+        var medida = $(this).val();
+        switch (medida) {
+          case 'litro':
+              $('#quantidade').val('').on('input', function(e) {
+                  var val = e.target.value.replace(/[^\d,]/g, '').replace(/,/g, '.');
+                  $(this).val(val + 'lt');
+              });
+              break;
+          case 'quilograma':
+              $('#quantidade').val('').on('input', function(e) {
+                  var val = e.target.value.replace(/[^\d,]/g, '').replace(/,/g, '.');
+                  $(this).val(val + 'kg');
+              });
+              break;
+          case 'unidade':
+              $('#quantidade').val('').on('input', function(e) {
+                  var val = e.target.value.replace(/[^\d]/g, '');
+                  $(this).val(val + 'un');
+              });
+              break;
+          case 'gramas':
+              $('#quantidade').val('').on('input', function(e) {
+                  var val = e.target.value.replace(/[^\d]/g, '');
+                  $(this).val(val + 'g');
+              });
+              break;
+      }
+    });
 
-    if (!nome) {
-      errors += '<p>O campo Nome é obrigatório.</p>';
-    }
-
-    if (!unidade_medida) {
-      errors += '<p>O campo Unidade de Medida é obrigatório.</p>';
-    } else if (!['Litro', 'Quilograma', 'Unidade', 'Gramas'].includes(unidade_medida)) {
-      errors += '<p>O campo Unidade de Medida deve ser um dos seguintes valores: Litro, Quilograma, Unidade ou Gramas.</p>';
-    }
-
-    if (perecivel && !$('#data-validade').val()) {
-      errors += '<p>O campo Data de Validade é obrigatório para produtos perecíveis.</p>';
-    }
-
-    if (!data_fabricacao) {
-      errors += '<p>O campo Data de Fabricação é obrigatório.</p>';
-    }
-
-    if (errors) {
-      $('#errors').html(errors);
-      return false;
-    } else {
-      return true;
-    }
+  // Validação do campo monetário
+  $('#preco').on('input', function(e) {
+      var val = e.target.value.replace(/[^\d,]/g, '').replace(/,/g, '.');
+      $(this).val('R$ ' + val.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',00');
   });
+
 });
+
 </script>

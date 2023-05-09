@@ -28,6 +28,8 @@ $cakeDescription = 'LogInfo';
     <?= $this->Html->meta('icon') ?>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="<?= $this->Url->webroot('font-awesome.min.css') ?>">
 
     <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
 

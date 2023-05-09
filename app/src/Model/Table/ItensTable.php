@@ -54,39 +54,39 @@ class ItensTable extends Table
             ->scalar('nome')
             ->maxLength('nome', 255)
             ->requirePresence('nome', 'create')
-            ->notEmptyString('nome');
+            ->notEmptyString('nome', 'Por favor, preencha o campo Nome.');
 
         $validator
-            ->scalar('unidade_medida')
-            ->requirePresence('unidade_medida', 'create')
-            ->notEmptyString('unidade_medida');
-
+        ->scalar('unidade_medida')
+        ->requirePresence('unidade_medida', 'create')
+        ->notEmptyString('unidade_medida','Por favor, selecione uma unidade de medida válida.')
+        ->add('unidade_medida', 'inList', [
+            'rule' => ['inList', ['Litro', 'Quilograma', 'Unidade', 'Gramas']],
+            'message' => 'Por favor, selecione uma unidade de medida válida.'
+        ]);
+        
         $validator
             ->scalar('quantidade')
             ->maxLength('quantidade', 255)
-            ->requirePresence('quantidade', 'create')
-            ->notEmptyString('quantidade');
+            ->requirePresence('quantidade', 'create');
 
         $validator
-            ->scalar('preco')
-            ->maxLength('preco', 255)
-            ->requirePresence('preco', 'create')
-            ->notEmptyString('preco');
-
+        ->decimal('preco', null, 'Por favor, preencha o campo Preco com um valor válido.')
+        ->notEmptyString('preco','Por favor, preencha o campo preco.')
+        ->greaterThan('preco', 0, 'O preço deve ser maior que zero.');        
+        
         $validator
             ->boolean('perecivel')
-            ->requirePresence('perecivel', 'create')
-            ->notEmptyString('perecivel');
-
-        $validator
-            ->date('data_validade')
-            ->requirePresence('data_validade', 'create')
-            ->notEmptyDate('data_validade');
+            ->requirePresence('perecivel', 'create');
 
         $validator
             ->date('data_fabricacao')
+            ->requirePresence('data_fabricacao', 'create');
+        
+        $validator
+            ->date('data_fabricacao')
             ->requirePresence('data_fabricacao', 'create')
-            ->notEmptyDate('data_fabricacao');
+            ->notEmptyDate('data_fabricacao', 'Defina uma data de fabricaçao.');
 
         return $validator;
     }

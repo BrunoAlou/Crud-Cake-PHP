@@ -9,7 +9,7 @@
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
             <?= $this->Form->postLink(
-                __('Delete'),
+                __('Deletar'),
                 ['action' => 'delete', $iten->id],
                 ['confirm' => __('Tem certeza que gostaria de deletar# {0}?', $iten->id), 'class' => 'side-nav-item']
             ) ?>
@@ -20,7 +20,7 @@
         <div class="itens form content">
             <?= $this->Form->create($iten) ?>
             <fieldset>
-                <legend><?= __('Edit Iten') ?></legend>
+                <legend><?= __('Editar Item') ?></legend>
                 <?php
                     echo $this->Form->control('nome');
                     echo $this->Form->control('unidade_medida');
@@ -31,7 +31,7 @@
                     echo $this->Form->control('data_fabricacao');
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Salvar')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
