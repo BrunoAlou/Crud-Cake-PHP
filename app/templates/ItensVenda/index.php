@@ -5,7 +5,8 @@
  */
 ?>
 <div class="itensVenda index content">
-<?= $this->Html->link(__('New Itens Venda'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <?= $this->Html->link(__('New Itens Venda'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <?= $this->Html->css(['template']) ?>
     <h3><?= __('Itens Venda') ?></h3>
     <div class="table-responsive">
         <table>
@@ -18,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($itensVendaGrouped as $vendaId => $itens): ?>
+            <?php foreach ($itensVendaGrouped as $vendaId => $itens): ?>
                     <?php foreach ($itens as $item): ?>
                         <tr>
                             <?php if ($item === $itens[0]): ?>

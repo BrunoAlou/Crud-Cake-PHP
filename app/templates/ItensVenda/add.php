@@ -21,9 +21,9 @@
                     echo $this->Form->control('venda_id', ['options' => $vendas]);
                     $itemNames = [];
                     foreach ($itens as $key => $item) {
-                        $itemNames[] = ['id' => $key, 'nome' => $item];
-                    }
-                    echo $this->Form->control('nome', ['options' => $itemNames]);
+                        $itemNames[$key] = $key . ' - ' . $item;
+                    }                    
+                    echo $this->Form->control('item_id', ['options' => $itemNames]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Adicionar')) ?>

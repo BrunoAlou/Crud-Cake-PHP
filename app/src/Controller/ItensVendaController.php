@@ -14,7 +14,7 @@ class ItensVendaController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Vendas'],
+            'contain' => ['Vendas', 'Itens'], // Adicione 'Itens' ao 'contain'
         ];
         $itensVenda = $this->paginate($this->ItensVenda);
     

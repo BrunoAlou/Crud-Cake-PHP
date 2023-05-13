@@ -13,18 +13,17 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="itens form content">
-            <?= $this->Form->create($iten) ?>
+            <?= $this->Form->create($iten, ['id' => 'iten-form']) ?>
             <fieldset>
                 <legend><?= __('Add Iten') ?></legend>
                 <?php
-                    echo $this->Form->control('nome', ['required' => true, 'empty' => 'Por favor, preencha o campo nome']);
+                    echo $this->Form->control('nome', ['required' => true]);
 
                     echo $this->Form->label('unidade_medida', 'Unidade de Medida');
                     echo $this->Form->select('unidade_medida', [
-                        'litro' => 'Litro',
-                        'quilograma' => 'Quilograma',
-                        'unidade' => 'Unidade',
-                        'gramas' => 'Gramas',
+                        'Litro' => 'Litro',
+                        'Quilograma' => 'Quilograma',
+                        'Unidade' => 'Unidade',
                     ], ['empty' => true, 'id' => 'unidade-medida']);
                     echo $this->Form->control('quantidade', ['id' => 'quantidade']);
                     echo $this->Form->control('preco', ['type' => 'number', 'step' => '0.01', 'label' => 'Preço', 'id' => 'preco']);
@@ -45,6 +44,17 @@
 
 <script>
   $(document).ready(function(){
+    $('#iten-form').on('submit', function(e) {
+    // Obtém o valor atual do campo quantidade
+    var quantidade = $('#quantidade').val();
+  
+    // Remove os sufixos indesejados
+    quantidade = quantidade.replace(/(lt|cm|kg|un|g)$/i, '');
+  
+    // Atualiza o valor corrigido no campo quantidade
+    $('#quantidade').val(quantidade);
+  });
+
     $('#perecivel').change(function(){
         if ($(this).is(':checked')) {
             $('#data-validade').prop('required', true);
@@ -56,38 +66,39 @@
     $('#unidade-medida').change(function() {
         var medida = $(this).val();
         switch (medida) {
-          case 'litro':
+          case 'Litro':
               $('#quantidade').val('').on('input', function(e) {
                   var val = e.target.value.replace(/[^\d,]/g, '').replace(/,/g, '.');
                   $(this).val(val + 'lt');
               });
               break;
-          case 'quilograma':
+          case 'Quilograma':
               $('#quantidade').val('').on('input', function(e) {
                   var val = e.target.value.replace(/[^\d,]/g, '').replace(/,/g, '.');
                   $(this).val(val + 'kg');
               });
               break;
-          case 'unidade':
+          case 'Unidade':
               $('#quantidade').val('').on('input', function(e) {
                   var val = e.target.value.replace(/[^\d]/g, '');
                   $(this).val(val + 'un');
               });
               break;
-          case 'gramas':
-              $('#quantidade').val('').on('input', function(e) {
-                  var val = e.target.value.replace(/[^\d]/g, '');
-                  $(this).val(val + 'g');
-              });
-              break;
       }
     });
 
-  // Validação do campo monetário
-  $('#preco').on('input', function(e) {
-      var val = e.target.value.replace(/[^\d,]/g, '').replace(/,/g, '.');
-      $(this).val('R$ ' + val.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',00');
-  });
+    $('#preco').on('input', function(e) {
+    var val = e.target.value.replace(/[^\d,]|(?!^),/g, ''); // Remove caracteres inválidos e vírgulas adicionais
+    val = val.replace(/,(\d{2})$/g, '.$1'); // Substitui a última vírgula por ponto e formata os centavos
+    var formattedValue = 'R$ ' + val.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',00'; // Valor formatado com o símbolo "R$"
+    
+    // Define apenas o valor numérico no campo "preco"
+    $(this).val(val);
+    
+    // Exibe o valor formatado em outro elemento, se necessário
+    $('#preco-display').text(formattedValue);
+});
+
 
 });
 

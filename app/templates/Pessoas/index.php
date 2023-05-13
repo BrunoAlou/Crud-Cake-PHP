@@ -6,6 +6,7 @@
 ?>
 <div class="pessoas index content">
     <?= $this->Html->link(__('Nova Pessoa'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <?= $this->Html->css(['template']) ?>
     <h3><?= __('Pessoas') ?></h3>
     <div class="table-responsive">
         <table>
@@ -28,9 +29,9 @@
                     <td><?= h($pessoa->endereco) ?></td>
                     <td><?= h($pessoa->telefone) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('Visualizar'), ['action' => 'view', $pessoa->id]) ?>
-                        <?= $this->Html->link(__('Editar'), ['action' => 'edit', $pessoa->id]) ?>
-                        <?= $this->Form->postLink(__('Deletar'), ['action' => 'delete', $pessoa->id], ['confirm' => __('Tem certeza que gostaria de deletar# {0}?', $pessoa->id)]) ?>
+                        <button type="button" class="button-link action-button view-button" onclick="window.location.href='<?= $this->Url->build(['action' => 'view', $pessoa->id]) ?>';"><i class="fa fa-eye fa-xl"></i></button>
+                        <button type="button" class="button-link action-button edit-button" onclick="window.location.href='<?= $this->Url->build(['action' => 'edit', $pessoa->id]) ?>';"><i class="fa fa-pencil fa-xl"></i></button>
+                        <button type="button" class="button-link action-button delete-button" onclick="deleteItem('<?= $this->Url->build(['action' => 'delete', $pessoa->id]) ?>')"><i class="fa fa-trash fa-xl"></i></button>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -48,3 +49,32 @@
         <p><?= $this->Paginator->counter(__('Pagina {{page}} de{{pages}}, mostrando {{current}} registros(s) em um total de  {{count}}')) ?></p>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function deleteItem(url) {
+        if (confirm('Tem certeza que gostaria de deletar?')) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        // Show success message or perform any necessary actions
+                        alert('O iten foi removido com sucesso.');
+
+                        // Redirect to the index page
+                        window.location.href = '/Pessoas/index'; // Replace '/itens' with the appropriate URL of your index page
+                    } else {
+                        // Show error message or handle the deletion failure
+                        alert('The iten could not be deleted. Please, try again.');
+                    }
+                },
+                error: function() {
+                    // Show error message or handle any other errors
+                    alert('An error occurred during the deletion. Please, try again.');
+                }
+            });
+        }
+    }
+</script>

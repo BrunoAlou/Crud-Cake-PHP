@@ -32,10 +32,10 @@ class ItensController extends AppController
     public function view($id = null)
     {
         $iten = $this->Itens->get($id, [
-            'contain' => [],
+            'contain' => ['Vendas', 'Itens'],
         ]);
 
-        $this->set(compact('iten'));
+        $this->set(compact('itensVenda'));
     }
 
     /**
@@ -99,6 +99,11 @@ class ItensController extends AppController
             $this->Flash->error(__('The iten could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        $response = $this->getResponse();
+        $response = $response->withStatus(200); // Set the response status to 200 OK
+        $response = $response->withType('application/json'); // Set the response content type to JSON
+        $response = $response->withStringBody(json_encode(['success' => true])); // Set the response body as JSON data
+    
+        return $response;
     }
 }

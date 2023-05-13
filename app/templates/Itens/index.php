@@ -6,6 +6,7 @@
 ?>
 <div class="itens index content">
     <?= $this->Html->link(__('Novo Item'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <?= $this->Html->css(['template']) ?>
     <h3><?= __('Itens') ?></h3>
     <div class="table-responsive">
         <table>
@@ -37,10 +38,7 @@
                         <button type="button" class="button-link action-button view-button" onclick="window.location.href='<?= $this->Url->build(['action' => 'view', $iten->id]) ?>';"><i class="fa fa-eye fa-xl"></i></button>
                         <button type="button" class="button-link action-button edit-button" onclick="window.location.href='<?= $this->Url->build(['action' => 'edit', $iten->id]) ?>';"><i class="fa fa-pencil fa-xl"></i></button>
                         <button type="button" class="button-link action-button delete-button" onclick="deleteItem('<?= $this->Url->build(['action' => 'delete', $iten->id]) ?>')"><i class="fa fa-trash fa-xl"></i></button>
-
                     </td>
-
-
                 <?php endforeach; ?>
             </tbody>
         </table>
@@ -57,54 +55,35 @@
     </div>
 </div>
 <style>
-    .action-button {
-        height: 40px;
-        padding: 0 20px;
-    }
-    .button.action-button {
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    }
 
-    /* Botão View */
-    .button-link.view-button {
-        background-color: #007bff;
-        border: 0.1rem solid #007bff;
-        color: #fff;
-    }
-
-    /* Botão Edit */
-    .button-link.edit-button {
-        background-color: #28a745;
-        border: 0.1rem solid #28a745;
-        color: #fff;
-    }
-
-    /* Botão Delete */
-    .button-link.delete-button {
-        background-color: #d33c43;
-        border: 0.1rem solid #d33c43;
-        color: #fff;
-    }
 
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     function deleteItem(url) {
         if (confirm('Tem certeza que gostaria de deletar?')) {
-            var form = document.createElement('form');
-            form.setAttribute('method', 'post');
-            form.setAttribute('action', url);
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        // Show success message or perform any necessary actions
+                        alert('O iten foi removido com sucesso.');
 
-            var hiddenField = document.createElement('input');
-            hiddenField.setAttribute('type', 'hidden');
-            hiddenField.setAttribute('name', '_method');
-            hiddenField.setAttribute('value', 'DELETE');
-            form.appendChild(hiddenField);
-
-            document.body.appendChild(form);
-            form.submit();
+                        // Redirect to the index page
+                        window.location.href = '/Itens/index'; // Replace '/itens' with the appropriate URL of your index page
+                    } else {
+                        // Show error message or handle the deletion failure
+                        alert('The iten could not be deleted. Please, try again.');
+                    }
+                },
+                error: function() {
+                    // Show error message or handle any other errors
+                    alert('An error occurred during the deletion. Please, try again.');
+                }
+            });
         }
     }
 </script>
