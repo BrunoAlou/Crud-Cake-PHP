@@ -1,70 +1,59 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
 
-/**
- * Itens Controller
- *
- * @method \App\Model\Entity\Iten[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class ItensController extends AppController
 {
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Breadcrumb');
+    }
     public function index()
     {
         $itens = $this->paginate($this->Itens);
 
-        $this->set(compact('itens'));
+        $breadcrumbs = $this->Breadcrumb->generateBreadcrumb();
+
+        $this->set(compact('itens', 'breadcrumbs'));
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Iten id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function view($id = null)
     {
         $iten = $this->Itens->get($id, [
-            'contain' => ['Vendas', 'Itens'],
+            'contain' => [],
         ]);
+        $breadcrumbs = $this->Breadcrumb->generateBreadcrumb();
 
-        $this->set(compact('itensVenda'));
+
+        $this->set(compact('iten', 'breadcrumbs'));
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $iten = $this->Itens->newEmptyEntity();
         if ($this->request->is('post')) {
-            $iten = $this->Itens->patchEntity($iten, $this->request->getData());
+            $data = $this->request->getData();
+
+            if (empty($data['data_validade'])) {
+                $data['data_validade'] = null;
+            }
+
+            $iten = $this->Itens->patchEntity($iten, $data);
             if ($this->Itens->save($iten)) {
-                $this->Flash->success(__('The iten has been saved.'));
+                $this->Flash->success(__('O Item foi salvo.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The iten could not be saved. Please, try again.'));
+            $this->Flash->error(__('O Item não foi salvo. Por favor, tente novamente.'));
         }
-        $this->set(compact('iten'));
+        $breadcrumbs = $this->Breadcrumb->generateBreadcrumb();
+
+        $this->set(compact('iten', 'breadcrumbs'));
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Iten id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function edit($id = null)
     {
         $iten = $this->Itens->get($id, [
@@ -73,37 +62,34 @@ class ItensController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $iten = $this->Itens->patchEntity($iten, $this->request->getData());
             if ($this->Itens->save($iten)) {
-                $this->Flash->success(__('The iten has been saved.'));
+                $this->Flash->success(__('O item foi editado.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The iten could not be saved. Please, try again.'));
+            $this->Flash->error(__('O Item não foi salvo. Por favor, tente novamente.'));
         }
-        $this->set(compact('iten'));
+        $breadcrumbs = $this->Breadcrumb->generateBreadcrumb();
+
+        $this->set(compact('iten', 'breadcrumbs'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Iten id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $iten = $this->Itens->get($id);
-        if ($this->Itens->delete($iten)) {
-            $this->Flash->success(__('The iten has been deleted.'));
+        $item = $this->Itens->get($id);
+
+        $response = $this->response->withType('application/json');
+
+        if ($this->Itens->delete($item)) {
+            $this->Flash->success(__('O Item foi removido.'));
+
+            $response = $response->withStringBody(json_encode(['success' => true]));
         } else {
-            $this->Flash->error(__('The iten could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Não foi possível remover o item selecionada. Por favor, tente novamente.'));
+
+            $response = $response->withStringBody(json_encode(['success' => false]));
         }
 
-        $response = $this->getResponse();
-        $response = $response->withStatus(200); // Set the response status to 200 OK
-        $response = $response->withType('application/json'); // Set the response content type to JSON
-        $response = $response->withStringBody(json_encode(['success' => true])); // Set the response body as JSON data
-    
         return $response;
     }
 }

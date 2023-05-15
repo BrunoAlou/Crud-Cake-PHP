@@ -1,35 +1,34 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
 
-/**
- * Vendas Controller
- *
- * @method \App\Model\Entity\Venda[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class VendasController extends AppController
 {
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Breadcrumb');
+    }
+
     public function index()
     {
-        $vendas = $this->paginate($this->Vendas->find()->contain(['Pessoas']));
+        $vendas = $this->paginate($this->Vendas->find()->contain(['Pessoas', 'Vendedores']));
+        $breadcrumbs = $this->Breadcrumb->generateBreadcrumb();
 
-        $this->set(compact('vendas'));
+        $this->set(compact('vendas', 'breadcrumbs'));
     }
 
     public function view($id = null)
     {
         $venda = $this->Vendas->get($id, [
-            'contain' => ['Pessoas', 'ItensVenda', 'ItensVenda.Itens'],
+            'contain' => ['Pessoas', 'Vendedores', 'ItensVenda', 'ItensVenda.Itens'],
         ]);
-        
-        $this->set(compact('venda'));
-    }    
+        $breadcrumbs = $this->Breadcrumb->generateBreadcrumb();
+
+        $this->set(compact('venda', 'breadcrumbs'));
+    }
 
     public function add()
     {
@@ -37,14 +36,16 @@ class VendasController extends AppController
         if ($this->request->is('post')) {
             $venda = $this->Vendas->patchEntity($venda, $this->request->getData());
             if ($this->Vendas->save($venda)) {
-                $this->Flash->success(__('The venda has been saved.'));
+                $this->Flash->success(__('A venda foi salva.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The venda could not be saved. Please, try again.'));
+            $this->Flash->error(__('Não foi possivel salvar a venda. Por favor, tente novamente.'));
         }
         $pessoas = $this->Vendas->Pessoas->find('list', ['limit' => 200]);
         $vendedores = $this->Vendas->Pessoas->find('list', ['limit' => 200]);
-        $this->set(compact('venda', 'pessoas', 'vendedores'));
+        $breadcrumbs = $this->Breadcrumb->generateBreadcrumb();
+
+        $this->set(compact('venda', 'pessoas', 'vendedores', 'breadcrumbs'));
     }
 
     public function edit($id = null)
@@ -55,36 +56,36 @@ class VendasController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $venda = $this->Vendas->patchEntity($venda, $this->request->getData());
             if ($this->Vendas->save($venda)) {
-                $this->Flash->success(__('The venda has been saved.'));
+                $this->Flash->success(__('A venda não foi salva.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The venda could not be saved. Please, try again.'));
+            $this->Flash->error(__('A venda não foi editada. Por favor, tente novamente.'));
         }
         $pessoas = $this->Vendas->Pessoas->find('list', ['limit' => 200]);
         $vendedores = $this->Vendas->Pessoas->find('list', ['limit' => 200]);
-        $this->set(compact('venda', 'pessoas', 'vendedores'));
+        $breadcrumbs = $this->Breadcrumb->generateBreadcrumb();
+
+        $this->set(compact('venda', 'pessoas', 'vendedores', 'breadcrumbs'));
     }
 
-
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Venda id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $venda = $this->Vendas->get($id);
+
+        $response = $this->response->withType('application/json');
+
         if ($this->Vendas->delete($venda)) {
-            $this->Flash->success(__('The venda has been deleted.'));
+            $this->Flash->success(__('A venda foi removida.'));
+
+            $response = $response->withStringBody(json_encode(['success' => true]));
         } else {
-            $this->Flash->error(__('The venda could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Não foi possível remover a venda selecionada. Por favor, tente novamente.'));
+
+            $response = $response->withStringBody(json_encode(['success' => false]));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $response;
     }
 }

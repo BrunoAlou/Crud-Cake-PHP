@@ -1,12 +1,5 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var iterable<\Cake\Datasource\EntityInterface> $itens
- */
-?>
-<div class="itens index content">
+<div class="itens index">
     <?= $this->Html->link(__('Novo Item'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <?= $this->Html->css(['template']) ?>
     <h3><?= __('Itens') ?></h3>
     <div class="table-responsive">
         <table>
@@ -20,7 +13,7 @@
                     <th><?= $this->Paginator->sort('perecivel') ?></th>
                     <th><?= $this->Paginator->sort('data_validade') ?></th>
                     <th><?= $this->Paginator->sort('data_fabricacao') ?></th>
-                    <th class="actions"><?= __('Ações') ?></th>
+                    <th class="actions d-flex"><?= __('Ações') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -34,7 +27,7 @@
                     <td><?= $iten->perecivel == 1 ? __('Sim') : __('Nao'); ?></td>                
                     <td><?= h($iten->data_validade) ?></td>
                     <td><?= h($iten->data_fabricacao) ?></td>
-                    <td class="actions">
+                    <td class="actions d-flex">
                         <button type="button" class="button-link action-button view-button" onclick="window.location.href='<?= $this->Url->build(['action' => 'view', $iten->id]) ?>';"><i class="fa fa-eye fa-xl"></i></button>
                         <button type="button" class="button-link action-button edit-button" onclick="window.location.href='<?= $this->Url->build(['action' => 'edit', $iten->id]) ?>';"><i class="fa fa-pencil fa-xl"></i></button>
                         <button type="button" class="button-link action-button delete-button" onclick="deleteItem('<?= $this->Url->build(['action' => 'delete', $iten->id]) ?>')"><i class="fa fa-trash fa-xl"></i></button>
@@ -69,19 +62,14 @@
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
-                        // Show success message or perform any necessary actions
-                        alert('O iten foi removido com sucesso.');
-
-                        // Redirect to the index page
-                        window.location.href = '/Itens/index'; // Replace '/itens' with the appropriate URL of your index page
+                        window.location.href = '/Itens/index'; 
                     } else {
-                        // Show error message or handle the deletion failure
-                        alert('The iten could not be deleted. Please, try again.');
+                        alert('O item não pode ser removido. Por favor, tente novamente.');
                     }
                 },
                 error: function() {
                     // Show error message or handle any other errors
-                    alert('An error occurred during the deletion. Please, try again.');
+                    alert('Um erro ocorreu durante a remoção do item. Por favor, tente novamente.');
                 }
             });
         }

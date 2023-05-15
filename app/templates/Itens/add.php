@@ -1,13 +1,7 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \Cake\Datasource\EntityInterface $iten
- */
-?>
 <div class="row">
-    <aside class="column">
+    <aside class="col">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
+            <h4 class="heading"><?= __('Ações') ?></h4>
             <?= $this->Html->link(__('Listagem de Itens'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
@@ -45,13 +39,8 @@
 <script>
   $(document).ready(function(){
     $('#iten-form').on('submit', function(e) {
-    // Obtém o valor atual do campo quantidade
     var quantidade = $('#quantidade').val();
-  
-    // Remove os sufixos indesejados
     quantidade = quantidade.replace(/(lt|cm|kg|un|g)$/i, '');
-  
-    // Atualiza o valor corrigido no campo quantidade
     $('#quantidade').val(quantidade);
   });
 
@@ -62,7 +51,6 @@
             $('#data-validade').prop('required', false);
         }
     });
-// Regra da unidade de medida
     $('#unidade-medida').change(function() {
         var medida = $(this).val();
         switch (medida) {
@@ -88,14 +76,10 @@
     });
 
     $('#preco').on('input', function(e) {
-    var val = e.target.value.replace(/[^\d,]|(?!^),/g, ''); // Remove caracteres inválidos e vírgulas adicionais
-    val = val.replace(/,(\d{2})$/g, '.$1'); // Substitui a última vírgula por ponto e formata os centavos
-    var formattedValue = 'R$ ' + val.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',00'; // Valor formatado com o símbolo "R$"
-    
-    // Define apenas o valor numérico no campo "preco"
+    var val = e.target.value.replace(/[^\d,]|(?!^),/g, ''); 
+    val = val.replace(/,(\d{2})$/g, '.$1'); 
+    var formattedValue = 'R$ ' + val.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',00'; 
     $(this).val(val);
-    
-    // Exibe o valor formatado em outro elemento, se necessário
     $('#preco-display').text(formattedValue);
 });
 

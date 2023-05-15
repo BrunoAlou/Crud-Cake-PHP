@@ -1,14 +1,7 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\ItensVenda $itensVenda
- * @var \Cake\Collection\CollectionInterface|string[] $vendas
- */
-?>
 <div class="row">
-    <aside class="column">
+    <aside class="col">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
+            <h4 class="heading"><?= __('Ações') ?></h4>
             <?= $this->Html->link(__('Listagem de Itens Venda'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
@@ -16,7 +9,7 @@
         <div class="itensVenda form content">
             <?= $this->Form->create($itensVenda) ?>
             <fieldset>
-                <legend><?= __('Add Itens Venda') ?></legend>
+                <legend><?= __('Adicionar Itens na Venda') ?></legend>
                 <?php
                     echo $this->Form->control('venda_id', ['options' => $vendas]);
                     $itemNames = [];

@@ -1,13 +1,7 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\ItensVenda $itensVenda
- */
-?>
 <div class="row">
-    <aside class="column">
+    <aside class="col">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
+            <h4 class="heading"><?= __('Ações') ?></h4>
             <?= $this->Html->link(__('Editar Itens Venda'), ['action' => 'edit', $itensVenda->id], ['class' => 'side-nav-item']) ?>
             <?= $this->Form->postLink(__('Deletar Itens Venda'), ['action' => 'delete', $itensVenda->id], ['confirm' => __('Tem certeza que gostaria de deletar# {0}?', $itensVenda->id), 'class' => 'side-nav-item']) ?>
             <?= $this->Html->link(__('Listagem de Itens Venda'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>

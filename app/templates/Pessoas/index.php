@@ -1,12 +1,5 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var iterable<\App\Model\Entity\Pessoa> $pessoas
- */
-?>
-<div class="pessoas index content">
+<div class="pessoas index">
     <?= $this->Html->link(__('Nova Pessoa'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <?= $this->Html->css(['template']) ?>
     <h3><?= __('Pessoas') ?></h3>
     <div class="table-responsive">
         <table>
@@ -17,7 +10,7 @@
                     <th><?= $this->Paginator->sort('cpf') ?></th>
                     <th><?= $this->Paginator->sort('endereco') ?></th>
                     <th><?= $this->Paginator->sort('telefone') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <th class="actions d-flex"><?= __('Ações') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +21,7 @@
                     <td><?= h($pessoa->cpf) ?></td>
                     <td><?= h($pessoa->endereco) ?></td>
                     <td><?= h($pessoa->telefone) ?></td>
-                    <td class="actions">
+                    <td class="actions d-flex">
                         <button type="button" class="button-link action-button view-button" onclick="window.location.href='<?= $this->Url->build(['action' => 'view', $pessoa->id]) ?>';"><i class="fa fa-eye fa-xl"></i></button>
                         <button type="button" class="button-link action-button edit-button" onclick="window.location.href='<?= $this->Url->build(['action' => 'edit', $pessoa->id]) ?>';"><i class="fa fa-pencil fa-xl"></i></button>
                         <button type="button" class="button-link action-button delete-button" onclick="deleteItem('<?= $this->Url->build(['action' => 'delete', $pessoa->id]) ?>')"><i class="fa fa-trash fa-xl"></i></button>
@@ -49,8 +42,6 @@
         <p><?= $this->Paginator->counter(__('Pagina {{page}} de{{pages}}, mostrando {{current}} registros(s) em um total de  {{count}}')) ?></p>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
     function deleteItem(url) {
         if (confirm('Tem certeza que gostaria de deletar?')) {
@@ -60,19 +51,16 @@
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
-                        // Show success message or perform any necessary actions
-                        alert('O iten foi removido com sucesso.');
-
                         // Redirect to the index page
-                        window.location.href = '/Pessoas/index'; // Replace '/itens' with the appropriate URL of your index page
+                        window.location.href = '/pessoas'; // Replace '/itens' with the appropriate URL of your index page
                     } else {
                         // Show error message or handle the deletion failure
-                        alert('The iten could not be deleted. Please, try again.');
+                        alert('The iten could not be deleted. Por favor, tente novamente.');
                     }
                 },
                 error: function() {
                     // Show error message or handle any other errors
-                    alert('An error occurred during the deletion. Please, try again.');
+                    alert('An error occurred during the deletion. Por favor, tente novamente.');
                 }
             });
         }

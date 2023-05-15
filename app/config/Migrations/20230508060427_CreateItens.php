@@ -41,7 +41,7 @@ class CreateItens extends AbstractMigration
         ]);
         $table->addColumn('data_validade', 'date', [
             'default' => null,
-            'null' => false,
+            'null' => true,
         ]);
         $table->addColumn('data_fabricacao', 'date', [
             'default' => null,

@@ -1,13 +1,7 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \Cake\Datasource\EntityInterface $iten
- */
-?>
 <div class="row">
-    <aside class="column">
+    <aside class="col">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
+            <h4 class="heading"><?= __('Ações') ?></h4>
             <?= $this->Form->postLink(
                 __('Deletar'),
                 ['action' => 'delete', $iten->id],

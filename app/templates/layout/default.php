@@ -1,65 +1,71 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       https://opensource.org/licenses/mit-license.php MIT License
- * @var \App\View\AppView $this
- */
-
-$cakeDescription = 'LogInfo';
-?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
+        Loginfo- Crud Simples cakePHP
     </title>
     <?= $this->Html->meta('icon') ?>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= $this->Url->webroot('font-awesome.min.css') ?>">
 
+    <script src="<?= $this->Url->webroot('js/jquery.mask.min.js') ?>"></script>
+    <?= $this->Html->css(['template']) ?>
     <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
+
 <body>
-    <nav class="top-nav">
-        <div class="top-nav-title">
-            <?php
-                echo $this->Html->link(
-                    $this->Html->image('Marca-Loginfo.png', ['alt' => 'Logo LogInfo', 'class' => 'img-responsive','style' => 'width: 200px; height: auto;']),
-                    '/',
-                    ['escape' => false]
-                );
-            ?>
-        </div>
-        <div class="top-nav-links">
-            <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/">Documentation</a>
-            <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a>
-        </div>
-    </nav>
+    <?= $this->element('navbar') ?>
+    <?= $this->element('breadcrumb') ?>
     <main class="main">
         <div class="container">
             <?= $this->Flash->render() ?>
             <?= $this->fetch('content') ?>
         </div>
     </main>
-    <footer>
-    </footer>
+    <?= $this->element('footer') ?>
 </body>
+
 </html>
+<style>
+    .breadcrumb {
+        padding: 0rem;
+        background-color: #f5f7fa;
+    }
+</style>
+<script>
+    function showToast(type, message) {
+        var toastId = 'toast-' + new Date().getTime();
+        var toastHtml = '<div id="' + toastId + '" class="toast bg-' + type + ' text-white" role="alert" aria-live="assertive" aria-atomic="true">' +
+            '<div class="toast-body">' +
+            message +
+            '</div>' +
+            '</div>';
+
+        $('.toast-container').append(toastHtml);
+
+        var toastElement = $('#' + toastId);
+        var toast = new bootstrap.Toast(toastElement);
+        toast.show();
+
+        setTimeout(function() {
+            toast.hide();
+            toastElement.remove();
+        }, 3000);
+    }
+</script>

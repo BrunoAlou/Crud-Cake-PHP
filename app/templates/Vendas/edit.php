@@ -1,14 +1,7 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Venda $venda
- * @var string[]|\Cake\Collection\CollectionInterface $pessoas
- */
-?>
 <div class="row">
-    <aside class="column">
+    <aside class="col">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
+            <h4 class="heading"><?= __('Ações') ?></h4>
             <?= $this->Form->postLink(
                 __('Deletar'),
                 ['action' => 'delete', $venda->id],
@@ -24,7 +17,7 @@
                 <legend><?= __('Editar Venda') ?></legend>
                 <?php
                     echo $this->Form->control('pessoa_id', ['options' => $pessoas]);
-                    echo $this->Form->control('vendedor_id');
+                    echo $this->Form->control('vendedor_id',['options' => $vendedores]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Adicionar')) ?>
