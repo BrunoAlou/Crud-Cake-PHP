@@ -1,8 +1,43 @@
-### Desafio Loginfo - Teste de aptidão profissional, com CakePHP (v3.9)
-### Necessidades do projeto
-Construir uma aplicação web com CakePHP (versão 3.9), para realizar a Venda
-de Itens para Pessoas. Cada Venda, deve ser composta por um comprador (Pessoa), um
-vendedor (Pessoa) e deve haver no mínimo 1 Item nessa Venda.
+# Desafio Loginfo - Crud em CakePHP
+
+Necessidades do projeto:
+
+- Construir uma aplicação web com CakePHP (versão 3.9).
+- Deve ser permitindo o usuário fazer o CRUD completo via sistema.
+- O mesmo deve possuir uma tela de acesso para cada tabela disponibilizada.
+
+Mais sobre as ferramentas utilizadas no projeto:
+
+- [Git](https://git-scm.com/)
+- [GitHub](https://github.com/)
+- [PHP7.4](https://www.php.net/)
+- [Jquery](https://jquery.com/)
+- [CakePHP](https://cakephp.org/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Jquery Mask](https://igorescobar.github.io/jQuery-Mask-Plugin/)
+- [Composer](https://getcomposer.org/)
+- [Mysql](https://www.mysql.com/)
+
+### Estrutura do Projeto
+
+```
+|- config/
+|   |
+|   |- Migrations/                       // Contem arquivos para criação do banco
+|   |- Seeds/                            // Contem arquivos para preenchimento de dados do banco
+|- src/
+|   |
+|   |- controller/                       // Contem controlers do projeto
+|   |- Middleware/                       // Contem Middleware para tratamento de rotas inexistentes
+|   |- Model/                            // Contem models do projeto
+|   |- View/                             // Service business logic classes (UserService)
+|- Templates/
+|   |- element                           // Elementos reutilizados no projeto
+|   |- ...Templates especificos          // Contem templates especificos referente a cada Table
+|- Database.sql                          // exemplo de banco utilizado
+```
+
+
 
 ### Comandos para executar o projeto local
 # Clone este repositório
@@ -10,26 +45,45 @@ $ git clone git@github.com:BrunoAlou/loginfo.git
 
 
 
-### Necessário
+##### Pre Requisitos
 
-São necessárias as seguintes tecnologias instaladas em seu ambiente local para rodar o projeto:
+- PHP 
+- Mysql
+- Composer
 
-[Git](https://git-scm.com), [php7.4](https://www.php.net/downloads.php), [cakePHP 3.9](https://cakephp.org/) ,[Composer](https://getcomposer.org/) e [Mysql](https://www.mysql.com/).
+**Note:** As seguintes tecnologias devem estar instaladas em seu ambiente local para rodar o projeto.
 
 #### Comandos para executar o projeto local
+
 Realize a criacao de um banco local de nome loginfo no mysql
+
 configure o arquivo app/config/app.php com as configuracoes de seu mysql local
-```bash
-$ cd app
-$ composer intall
-# Para rodar as migracoes
-$ bin/cake migrations migrate
-# Para rodar os seeds
-$ bin/cake migrations seed
-# Para rodar o servidor cake
-$ bin/cake server
+```
+'password' => 'senha_banco',
+```            
+modifique a linha acima
+
+Rode os comandos abaixo em sequência a partir da pasta raiz do projeto:
 
 ```
+$ cd app
+$ composer intall
+$ bin/cake migrations migrate 
+$ bin/cake migrations seed
+$ bin/cake server
+```
+
+### URLs 
+
+#### HTML
+
+|HTTP Method|URL|Description|
+|---|---|---|
+|`GET`|http://localhost/ | Home |
+|`GET`|http://localhost/Pessoas | Listagem de Pessoas |
+|`GET`|http://localhost/Itens | Listagem de Itens |
+|`GET`|http://localhost/Vendas | Listagem de Vendas |
+|`GET`|http://localhost/itens-venda | Listagem de itens da Venda |
 
 ## Autor
 
