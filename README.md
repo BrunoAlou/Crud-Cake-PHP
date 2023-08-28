@@ -41,7 +41,7 @@ Mais sobre as ferramentas utilizadas no projeto:
 
 ### Comandos para executar o projeto local
 # Clone este repositório
-$ git clone git@github.com:BrunoAlou/Crud-Cake-PHP.git
+$ git clone git@github.com:BrunoAlou/PHP-Cake-Crud.git
 
 
 
