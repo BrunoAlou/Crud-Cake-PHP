@@ -1,4 +1,4 @@
-# Desafio Loginfo - Crud em CakePHP
+# Desafio - Crud em CakePHP
 
 Necessidades do projeto:
 
@@ -55,7 +55,7 @@ $ git clone git@github.com:BrunoAlou/loginfo.git
 
 #### Comandos para executar o projeto local
 
-Realize a criacao de um banco local de nome loginfo no mysql
+Realize a criacao de um banco local no mysql
 
 configure o arquivo app/config/app.php com as configuracoes de seu mysql local
 ```
